@@ -49,8 +49,6 @@ class SetupController extends Controller
             Group::create($group);
         }
 
-        $church->refresh();
-        $church->load('groups');
-        dd($church);
+        return redirect()->route('form', $church);
     }
 }
