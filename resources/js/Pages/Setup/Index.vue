@@ -1,7 +1,7 @@
 <template>
     <div class="container py-4">
         <div class="jumbotron">
-            <h1 class="display-4">Willkommen, mutiger Held!</h1>
+            <h1 class="display-4">Willkommen, mutige:r Held:in!</h1>
             <p class="lead">Hier kannst du deine ganz eigene Konfi-Anmeldung einrichten.</p>
             <hr class="my-4">
             <div class="mb-4">Alles, was du dazu brauchst, ist ein "Token" <a
