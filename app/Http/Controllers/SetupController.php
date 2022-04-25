@@ -45,6 +45,7 @@ class SetupController extends Controller
         $data = $request->validate([
             'groups.*.name' => 'string|required',
             'groups.*.group_id' => 'string|required',
+            'groups.*.description' => 'string|nullable',
         ]);
         foreach ($data['groups'] as $group) {
             $group['church_id'] = $church->id;

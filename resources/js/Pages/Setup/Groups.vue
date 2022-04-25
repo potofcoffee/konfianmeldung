@@ -9,6 +9,7 @@
                 <input class="form-check-input" type="checkbox" :value="group.id" v-model="myGroups">
                 <label class="form-check-label">
                     {{ group.description }}
+                    <div v-if="group.detail" class="text-sm">{{ group.detail }}</div>
                 </label>
             </div>
 
@@ -34,7 +35,7 @@ export default {
         submit() {
             let record = { groups: [] };
             this.groups.forEach(group => {
-                if (this.myGroups.includes(group.id)) record.groups.push({ name: group.description, group_id: group.id });
+                if (this.myGroups.includes(group.id)) record.groups.push({ name: group.description, group_id: group.id, description: group.detail });
             });
             this.$inertia.post(route('setup.groups.store', this.church.name.toLowerCase()), record);
         },
