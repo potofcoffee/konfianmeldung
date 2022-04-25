@@ -9,7 +9,7 @@ class Church extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'token'];
+    protected $fillable = ['name', 'token', 'zip', 'city'];
 
     public function groups()
     {

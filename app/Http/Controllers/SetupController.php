@@ -26,6 +26,8 @@ class SetupController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'token' => 'required|string',
+            'zip' => 'nullable|string',
+            'city' => 'nullable|string',
         ]);
 
         $church = Church::create($data);

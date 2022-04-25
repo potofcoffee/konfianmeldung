@@ -25,6 +25,14 @@
                 <label for="token">Token</label>
                 <input name="token" class="form-control" v-model="record.token"/>
             </div>
+            <div class="form-group mb-2">
+                <label for="token">Postleitzahl</label>
+                <input name="token" class="form-control" v-model="record.zip"/>
+            </div>
+            <div class="form-group mb-2">
+                <label for="token">Ort</label>
+                <input name="token" class="form-control" v-model="record.city"/>
+            </div>
 
             <p class="lead mt-4">
                 <a class="btn btn-primary btn-lg" href="#" role="button" @click="submit">Einrichten</a>
@@ -41,6 +49,8 @@ export default {
             record: {
                 name: '',
                 token: '',
+                zip: '',
+                city: '',
             }
         }
     },
