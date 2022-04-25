@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+$theme-colors: (
+    "primary": #9b2335,
+    "secondary": #696969,
+    "success": #d9596c,
+    "info": #d02f47,
+    "warning": #e38291,
+    "danger":#de6e7e,
+    "light": #d9d9d9,
+    "dark": #333333
+);
+
+@import '~bootstrap/scss/bootstrap';
