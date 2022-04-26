@@ -28,6 +28,7 @@ class SetupController extends Controller
             'token' => 'required|string',
             'zip' => 'nullable|string',
             'city' => 'nullable|string',
+            'email' => 'nullable|string',
         ]);
 
         $church = Church::create($data);

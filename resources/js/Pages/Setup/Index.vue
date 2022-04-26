@@ -34,6 +34,8 @@
                 <label for="token">Ort</label>
                 <input name="token" class="form-control" v-model="record.city"/>
             </div>
+            <form-input label="Benachrichtigung senden an" v-model="record.email"
+                        help="Bei mehreren Adressen mit Kommas trennen" />
 
             <p class="lead mt-4">
                 <a class="btn btn-primary btn-lg" href="#" role="button" @click="submit">Einrichten</a>
@@ -43,8 +45,10 @@
 </template>
 
 <script>
+import FormInput from "@/Components/Form/FormInput";
 export default {
     name: "Index",
+    components: {FormInput},
     data() {
         return {
             record: {
@@ -52,6 +56,7 @@ export default {
                 token: '',
                 zip: '',
                 city: '',
+                email: '',
             }
         }
     },
