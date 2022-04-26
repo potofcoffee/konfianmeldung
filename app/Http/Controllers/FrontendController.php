@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\KonfiMail;
+use App\Mail\NewRegistrationMail;
+use App\Mail\ParentMail;
 use App\Models\Church;
 use App\Services\CSVTable;
 use App\Services\KonfiApp;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use niklasravnsborg\LaravelPdf\Facades\Pdf as PDF;
@@ -36,6 +40,7 @@ class FrontendController extends Controller
             'group' => 'nullable|string|exists:groups,group_id',
             'konfi.vorname' => 'required|string',
             'konfi.nachname' => 'required|string',
+            'konfi.email' => 'nullable|string',
             'konfi.details.address.street' => 'required|string',
             'konfi.details.address.plz' => 'required|string',
             'konfi.details.address.city' => 'required|string',
@@ -98,6 +103,8 @@ class FrontendController extends Controller
         $result = $konfiApp->createKonfi($record);
         $record['username'] = $result['username'];
 
+        if ($data['konfi']['email']) $record['email'] = $data['konfi']['email'];
+
 
         // add to CSV
         $csv = new CSVTable($church);
@@ -106,6 +113,32 @@ class FrontendController extends Controller
         $pdf = PDF::loadView('pdf.confirm', compact('record', 'parents', 'church'));
         $fileName = Carbon::now()->year.' '.$church->name.' '.$record['nachname'].', '.$record['vorname'].'.pdf';
         $pdf->save(storage_path('app/pdf/'.$fileName));
+
+        // get group name
+        $groupName = '';
+        foreach ($church->groups as $group) {
+            if ($group->group_id == $record['groups']) $groupName = $group->name;
+        }
+
+
+        // send notifications
+        foreach (explode(',', $church->email) as $email) {
+            Mail::to(trim($email))->send(new NewRegistrationMail($record, $parents, $church, $groupName, $fileName));
+        }
+
+        // send Konfi mail
+        if ($record['email']) {
+            Mail::to(trim($record['email']))->cc(explode(',', $church->email) ?? [])
+                ->send(new KonfiMail($record, $parents, $church, $groupName, $fileName));
+        }
+
+        // send parents mail
+        foreach ($parents as $parent) {
+            if ($parent['mail'] ?? false) {
+                Mail::to(trim($record['email']))->cc(explode(',', $church->email) ?? [])
+                    ->send(new ParentMail($record, $parents, $church, $groupName, $fileName));
+            }
+        }
 
         return response()->json($fileName);
     }

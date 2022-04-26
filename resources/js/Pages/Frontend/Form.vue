@@ -32,6 +32,8 @@
                                 label="Ort"/>
                     <form-input name="konfi[details][personal.tel]" v-model="record.konfi.details.personal.tel" required
                                 label="Deine Handynummer"/>
+                    <form-input name="konfi[email]" v-model="record.konfi.email" required
+                                label="Deine E-Mailadresse" help="Falls vorhanden" />
                     <form-group label="Dein Geburtsdatum" required>
                         <datepicker v-model="record.konfi.details.personal.birthdate" required typeable
                                     input-format="dd.MM.yyyy" :locale="locale" class="form-control" />
@@ -127,6 +129,7 @@ export default {
                 konfi: {
                     vorname: '',
                     nachname: '',
+                    email: '',
                     details: {
                         personal: {
                             tel: '',
@@ -169,7 +172,6 @@ export default {
         submit() {
             if (this.$refs.myForm.checkValidity()) {
                 axios.post(route('register', this.church.name), this.record).then(response => {
-                    console.log('filename', response.data)
                     window.location.href = '/pdf/'+response.data;
                 });
             }
