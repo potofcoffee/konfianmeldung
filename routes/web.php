@@ -18,22 +18,10 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\SetupController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-require __DIR__.'/auth.php';
-
+Route::get('/', function () { abort(404); });
 Route::get('/anmeldung/{church:name}', [FrontendController::class, 'form'])->name('form');
+Route::post('/anmeldung/{church:name}', [FrontendController::class, 'register'])->name('register');
+Route::get('/liste/{church:name}', [FrontendController::class, 'list'])->name('list');
 
 
 Route::group(['prefix' => 'setup', 'as' => 'setup.'], function (){

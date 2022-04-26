@@ -12,6 +12,7 @@
                     <span class="badge bg-light m-1">groups.create</span>
                     <span class="badge bg-light m-1">groups.members.create</span>
                     <span class="badge bg-light m-1">groups.members.read</span>
+                    <span class="badge bg-light m-1">konfi-actions</span>
                     <span class="badge bg-light m-1">konfis.manage</span>
                     <span class="badge bg-light m-1">konfis.view</span>
                 </div>
