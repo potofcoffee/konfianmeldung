@@ -32,7 +32,7 @@
                                 label="Ort"/>
                     <form-input name="konfi[details][personal.tel]" v-model="record.konfi.details.personal.tel" required
                                 label="Deine Handynummer"/>
-                    <form-input name="konfi[email]" v-model="record.konfi.email" required
+                    <form-input name="konfi[email]" v-model="record.konfi.email"
                                 label="Deine E-Mailadresse" help="Falls vorhanden" />
                     <form-group label="Dein Geburtsdatum" required>
                         <datepicker v-model="record.konfi.details.personal.birthdate" required typeable
